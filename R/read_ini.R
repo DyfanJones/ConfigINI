@@ -1,6 +1,8 @@
-#' Read and Parse INI File
+#' @include RcppExports.R
+
+#' @title Read and Parse INI File
 #'
-#' This function reads and parses an INI file, returning its contents as a list of profiles.
+#' @description This function reads and parses an INI file, returning its contents as a list of profiles.
 #'
 #' @param file_name A character string specifying the path to the INI file.
 #'

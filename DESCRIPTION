@@ -1,15 +1,21 @@
 Package: ConfigINI
 Type: Package
-Title: What the Package Does in One 'Title Case' Line
-Version: 1.0
+Title: A fast INI file parser.
+Version: 0.1
 Date: 2025-01-01
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package does as one or more full sentences.
-License: GPL (>= 2)
+Authors@R: c(
+  person("Dyfan", "Jones", email="dyfan.r.jones@gmail.com", role= c("aut", "cre")))
+Description: Provides a simple yet efficient parser for INI configuration files,
+  converting them into structured list formats for easy manipulation and access
+  within R. The structured list can seamlessly be written back to an INI
+  configuration file, ensuring smooth round-trip data handling.
+License: MIT + file LICENSE
 Imports: Rcpp (>= 1.0.13)
 LinkingTo: Rcpp
 RoxygenNote: 7.3.2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Collate: 
+    'RcppExports.R'
+    'read_ini.R'

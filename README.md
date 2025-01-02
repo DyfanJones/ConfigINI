@@ -11,8 +11,8 @@ coverage](https://codecov.io/gh/DyfanJones/ConfigINI/graph/badge.svg)](https://a
 badge](https://dyfanjones.r-universe.dev/ConfigINI/badges/version)](https://dyfanjones.r-universe.dev/ConfigINI)
 <!-- badges: end -->
 
-Oringially developed with the paws.common package. A Fast INI Parser for
-R using Rcpp.
+Originally developed in the paws.common package. ConfigINI is a Fast INI
+Parser for R using Rcpp.
 
 ## Installation
 
@@ -181,15 +181,14 @@ demo_ini <- system.file("demo.ini", package = "ConfigINI")
 (bm <- bench::mark(
   ConfigINI::read_ini(demo_ini),
   inih::read_ini(demo_ini),
-  ini::read.ini(demo_ini),
-  relative = TRUE
+  ini::read.ini(demo_ini)
 ))
 #> # A tibble: 3 × 6
-#>   expression                      min median `itr/sec` mem_alloc `gc/sec`
-#>   <bch:expr>                    <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
-#> 1 ConfigINI::read_ini(demo_ini)  1      1        10.5        NaN     8.15
-#> 2 inih::read_ini(demo_ini)       2.57   2.52      4.19       Inf     1   
-#> 3 ini::read.ini(demo_ini)       10.8   10.8       1          Inf     8.34
+#>   expression                         min   median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>                    <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+#> 1 ConfigINI::read_ini(demo_ini)   46.7µs   51.1µs    18769.        0B     16.4
+#> 2 inih::read_ini(demo_ini)       121.6µs  127.5µs     7648.    14.3KB      0  
+#> 3 ini::read.ini(demo_ini)        505.8µs  547.3µs     1808.    4.22KB     16.7
 
 ggplot2::autoplot(bm)
 #> Loading required namespace: tidyr

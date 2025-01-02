@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![ConfigINI status badge](https://dyfanjones.r-universe.dev/ConfigINI/badges/version)](https://dyfanjones.r-universe.dev/ConfigINI)
 <!-- badges: end -->
 
-Oringially developed with the paws.common package. A Fast INI Parser for R using Rcpp.
+Originally developed in the paws.common package. ConfigINI is a Fast INI Parser for R using Rcpp.
 
 ## Installation
 
@@ -102,8 +102,7 @@ demo_ini <- system.file("demo.ini", package = "ConfigINI")
 (bm <- bench::mark(
   ConfigINI::read_ini(demo_ini),
   inih::read_ini(demo_ini),
-  ini::read.ini(demo_ini),
-  relative = TRUE
+  ini::read.ini(demo_ini)
 ))
 
 ggplot2::autoplot(bm)

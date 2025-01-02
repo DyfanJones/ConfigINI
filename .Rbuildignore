@@ -3,3 +3,5 @@
 ^README\.Rmd$
 ^\.github$
 ^\.vscode
+^LICENSE\.md$
+^CODE_OF_CONDUCT\.md$
