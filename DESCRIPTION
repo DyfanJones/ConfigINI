@@ -1,8 +1,7 @@
 Package: ConfigINI
 Type: Package
-Title: A fast INI file parser.
+Title: A Fast INI File Parser
 Version: 0.1
-Date: 2025-01-01
 Authors@R: c(
   person("Dyfan", "Jones", email="dyfan.r.jones@gmail.com", role= c("aut", "cre")))
 Description: Provides a simple yet efficient parser for INI configuration files,
