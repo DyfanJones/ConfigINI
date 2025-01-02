@@ -1,5 +1,13 @@
 #' @include RcppExports.R
 
+ini_cache <- new.env(parent = emptyenv())
+file_cache <- new.env(parent = emptyenv())
+
+
+check_file_mtime <- function(file_name) {
+  (!is.null(mtime <- file_cache[[file_name]]) && identical(mtime, file.mtime(file_name)))
+}
+
 #' @title Read and Parse INI File
 #'
 #' @description This function reads and parses an INI file, returning its contents as a list of profiles.
@@ -17,7 +25,12 @@
 #' }
 #'
 #' @export
+
 read_ini <- function(file_name) {
+  if (check_file_mtime(file_name)) {
+    return(ini_cache[[file_name]])
+  }
+
   content <- scan_ini_file(file_name)
 
   # Return empty list for empty files
@@ -50,6 +63,8 @@ read_ini <- function(file_name) {
       profiles[[i]] <- extract_ini_parameter(split_content[items, , drop = FALSE])
     }
   }
+  ini_cache[[file_name]] <- profiles
+  file_cache[[file_name]] <- file.mtime(file_name)
   return(profiles)
 }
 

@@ -105,5 +105,12 @@ demo_ini <- system.file("demo.ini", package = "ConfigINI")
   ini::read.ini(demo_ini)
 ))
 
+# Relative to the fastest time
+summary_cols <- c("min", "median", "itr/sec", "mem_alloc", "gc/sec")
+bm[summary_cols] <- lapply(bm[summary_cols], function(x) as.numeric(x / min(x)))
+bm
+```
+
+```{r, benchmark_graph, echo = FALSE}
 ggplot2::autoplot(bm)
 ```

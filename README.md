@@ -186,12 +186,22 @@ demo_ini <- system.file("demo.ini", package = "ConfigINI")
 #> # A tibble: 3 × 6
 #>   expression                         min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                    <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 ConfigINI::read_ini(demo_ini)   46.7µs   51.1µs    18769.        0B     16.4
-#> 2 inih::read_ini(demo_ini)       121.6µs  127.5µs     7648.    14.3KB      0  
-#> 3 ini::read.ini(demo_ini)        505.8µs  547.3µs     1808.    4.22KB     16.7
+#> 1 ConfigINI::read_ini(demo_ini)    5.9µs   6.44µs   150570.        0B     30.1
+#> 2 inih::read_ini(demo_ini)       125.5µs 130.22µs     7625.    14.3KB      0  
+#> 3 ini::read.ini(demo_ini)        507.1µs 522.18µs     1901.    4.22KB     18.6
 
-ggplot2::autoplot(bm)
-#> Loading required namespace: tidyr
+# Relative to the fastest time
+summary_cols <- c("min", "median", "itr/sec", "mem_alloc", "gc/sec")
+bm[summary_cols] <- lapply(bm[summary_cols], function(x) as.numeric(x / min(x)))
+bm
+#> # A tibble: 3 × 6
+#>   expression                      min median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>                    <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
+#> 1 ConfigINI::read_ini(demo_ini)   1      1       79.2        NaN      Inf
+#> 2 inih::read_ini(demo_ini)       21.3   20.2      4.01       Inf      NaN
+#> 3 ini::read.ini(demo_ini)        85.9   81.1      1          Inf      Inf
 ```
 
-<img src="man/figures/README-benchmark-1.png" width="100%" />
+    #> Loading required namespace: tidyr
+
+<img src="man/figures/README-benchmark_graph-1.png" width="100%" />

@@ -17,3 +17,15 @@ test_that("read_ini missing file", {
     "Unable to find file: made_up"
   )
 })
+
+test_that("read_ini updated cache file", {
+  temp_file <- tempfile(fileext = '.ini')
+  on.exit(unlink(temp_file))
+  expect_1 <- list(foo = list(bar = "123", cho = "hello world"))
+  write_ini(expect_1, temp_file)
+  expect_equal(read_ini(temp_file), expect_1)
+
+  expect_2 <- list(foo = list(bar = "124", cho = "hello foodmall"))
+  write_ini(expect_2, temp_file)
+  expect_equal(read_ini(temp_file), expect_2)
+})
