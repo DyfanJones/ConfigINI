@@ -5,7 +5,7 @@ file_cache <- new.env(parent = emptyenv())
 
 
 check_file_mtime <- function(file_name) {
-  (!is.null(mtime <- file_cache[[file_name]]) && identical(mtime, file.mtime(file_name)))
+  (!is.null(ctime <- file_cache[[file_name]]) && identical(ctime, file.info(file_name)$ctime))
 }
 
 #' @title Read and Parse INI File
@@ -64,7 +64,7 @@ read_ini <- function(file_name) {
     }
   }
   ini_cache[[file_name]] <- profiles
-  file_cache[[file_name]] <- file.mtime(file_name)
+  file_cache[[file_name]] <- file.info(file_name)$ctime
   return(profiles)
 }
 
