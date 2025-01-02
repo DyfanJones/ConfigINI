@@ -14,6 +14,6 @@ test_that("read_ini parse empty ini files", {
 test_that("read_ini missing file", {
   expect_error(
     read_ini("made_up"),
-    "Can't load the INI file: made_up"
+    "Unable to find file: made_up"
   )
 })
