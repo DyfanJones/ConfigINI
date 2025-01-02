@@ -1,0 +1,110 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ConfigINI
+
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/ConfigINI)](https://CRAN.R-project.org/package=ConfigINI)
+[![Codecov test coverage](https://codecov.io/gh/DyfanJones/ConfigINI/graph/badge.svg)](https://app.codecov.io/gh/DyfanJones/ConfigINI)
+[![ConfigINI status badge](https://dyfanjones.r-universe.dev/ConfigINI/badges/version)](https://dyfanjones.r-universe.dev/ConfigINI)
+<!-- badges: end -->
+
+Oringially developed with the paws.common package. A Fast INI Parser for R using Rcpp.
+
+## Installation
+
+You can install the development version of ConfigINI like so:
+
+Github:
+``` r
+remotes::install_github("dyfanjones/ConfigINI")
+```
+
+r-universe:
+```r
+install.packages("ConfigINI", repos = c("https://dyfanjones.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+### Read:
+``` {r, basic_read_ini}
+library(ConfigINI)
+
+demo_ini <- system.file("demo.ini", package = "ConfigINI")
+read_ini(demo_ini)
+```
+
+ConfigINI is also capible of reading some nested key value pairs:
+
+```{r, nested_ini}
+nested_ini <- system.file("nested.ini", package = "ConfigINI")
+cat(readLines(nested_ini), sep = "\n")
+```
+
+The current ini package doesn't support this feature and instead will flatten out the nested key value pairs:
+
+```{r, nested_ini_read_ini}
+ini::read.ini(nested_ini)
+```
+
+The ConfigINI package will keep the nested key value pairs:
+
+```{r, nested_read_ini}
+ConfigINI::read_ini(nested_ini)
+```
+
+### Write:
+
+``` {r, write_ini}
+library(ConfigINI)
+
+temp_file <- tempfile(fileext = ".ini")
+# Create an example configuration list
+config <- list(
+  person = list(name = "John Doe", age = "30", city = "New York"),
+  job = list(title = "Engineer", company = "ExampleCorp")
+)
+
+# Write the configuration to an INI file
+write_ini(config, temp_file)
+
+# Check the content of the created INI file
+cat(readLines(temp_file), sep = "\n")
+
+# clean up
+unlink(temp_file)
+```
+
+## Benchmark:
+
+Finally ConfigINI is faster than the other INI parsers available in R (to my knowledge) :)
+
+```r
+# get inih from r-universe for benchmark
+install.packages("inih", repos = c("https://dyfanjones.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+```{r, benchmark} 
+demo_ini <- system.file("demo.ini", package = "ConfigINI")
+(bm <- bench::mark(
+  ConfigINI::read_ini(demo_ini),
+  inih::read_ini(demo_ini),
+  ini::read.ini(demo_ini),
+  relative = TRUE
+))
+
+ggplot2::autoplot(bm)
+```
