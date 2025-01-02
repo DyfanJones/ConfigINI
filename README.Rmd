@@ -90,7 +90,7 @@ unlink(temp_file)
 
 ## Benchmark:
 
-Finally ConfigINI is faster than the other INI parsers available in R (to my knowledge) :)
+Finally ConfigINI is pretty fast. Here is a quick comparison
 
 ```r
 # get inih from r-universe for benchmark

@@ -169,8 +169,7 @@ unlink(temp_file)
 
 ## Benchmark:
 
-Finally ConfigINI is faster than the other INI parsers available in R
-(to my knowledge) :)
+Finally ConfigINI is pretty fast. Here is a quick comparison
 
 ``` r
 # get inih from r-universe for benchmark
@@ -188,9 +187,9 @@ demo_ini <- system.file("demo.ini", package = "ConfigINI")
 #> # A tibble: 3 × 6
 #>   expression                      min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                    <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
-#> 1 ConfigINI::read_ini(demo_ini)  1      1        10.2        NaN     8.16
-#> 2 inih::read_ini(demo_ini)       2.57   2.46      4.29       Inf     1   
-#> 3 ini::read.ini(demo_ini)       10.8   10.6       1          Inf     8.35
+#> 1 ConfigINI::read_ini(demo_ini)  1      1        10.5        NaN     8.15
+#> 2 inih::read_ini(demo_ini)       2.57   2.52      4.19       Inf     1   
+#> 3 ini::read.ini(demo_ini)       10.8   10.8       1          Inf     8.34
 
 ggplot2::autoplot(bm)
 #> Loading required namespace: tidyr
